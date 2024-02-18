@@ -1,8 +1,10 @@
-interface IDataBase {
-  [key: string]: string;
-}
+import { IDataBase } from './data.model';
 
 export const dataBase: IDataBase = {
-  Supermen: '12345',
-  Hulk: '67890',
+  users: [
+    { name: 'Superman', password: '12345' },
+    { name: 'Hulk', password: '67890' },
+    { name: 'LadyBee', password: 'beeee' },
+    { name: 'Super_girl', password: 'Sgirl' },
+  ],
 };
