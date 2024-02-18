@@ -15,7 +15,7 @@ module.exports = {
         node: true,
         jest: true,
     },
-    ignorePatterns: ['.eslintrc.cjs', 'webpack.config.js', 'jest.config.js', 'front/main.js'],
+    ignorePatterns: ['.eslintrc.cjs', 'webpack.config.js', 'jest.config.js', 'index.ts', 'front/main.js'],
     rules: {
         '@typescript-eslint/interface-name-prefix': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',

@@ -1,6 +1,10 @@
 import { httpServer } from './src/http_server/server';
+import { startWebSocket } from './src/webSocket/startWebSocket';
+import dotenv from 'dotenv';
 
-const HTTP_PORT = 8181;
+dotenv.config();
 
-console.log(`Start static http server on the ${HTTP_PORT} port!`);
-httpServer.listen(HTTP_PORT);
+httpServer.listen(process.env.HTTP_PORT, () => {
+  console.log(`Server is running on http://localhost:${process.env.HTTP_PORT}`);
+});
+startWebSocket(process.env.WS_PORT || '3000');
