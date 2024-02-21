@@ -1,4 +1,4 @@
-import { TYPES_ENUM } from '../../interfaces/types.model';
+import { IMessage } from '../message.model';
 
 export interface IUserCredentials {
   name: string;
@@ -12,15 +12,9 @@ export interface IDataReg {
   errorText?: string;
 }
 
-export interface IReg {
-  type: TYPES_ENUM;
-  data: string;
-  id: number;
-}
-
 export interface IRegCheck {
   error: boolean;
-  response: IReg;
+  response: IMessage;
 }
 
 export interface IUserWinners {

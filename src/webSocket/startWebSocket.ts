@@ -1,9 +1,7 @@
 import WebSocket from 'ws';
 import { TYPES_ENUM } from '../interfaces/types.model';
 import { regHandling } from '../requestsHandling/regHandling/regHandling';
-// import { createRoomHandling } from '../requestsHandling/createRoomHandling';
-import { IReg } from '../requestsHandling/regHandling/reg.model';
-import { updateWinners } from '../requestsHandling/regHandling/updateWinners';
+import { IMessage } from '../requestsHandling/message.model';
 
 const wss = new WebSocket.Server({
   port: +(process.env.WS_PORT || '3000'),
@@ -14,16 +12,11 @@ export function startWebSocket() {
     console.log('Client connected');
 
     ws.on('message', message => {
-      const request: IReg = JSON.parse(message.toString());
+      const request: IMessage = JSON.parse(message.toString());
       switch (request.type) {
         case TYPES_ENUM.REG:
-          const result = regHandling(request);
-          ws.send(JSON.stringify(result.response));
-          !result.error
-            ? ws.send(JSON.stringify(updateWinners(result.response)))
-            : null;
+          regHandling(ws, request);
           break;
-
         case TYPES_ENUM.CREATE_ROOM:
           // ws.send(JSON.stringify(createRoomHandling(request)));
           break;
