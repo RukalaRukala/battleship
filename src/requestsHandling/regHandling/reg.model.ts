@@ -17,3 +17,13 @@ export interface IReg {
   data: string;
   id: number;
 }
+
+export interface IRegCheck {
+  error: boolean;
+  response: IReg;
+}
+
+export interface IUserWinners {
+  name: string;
+  wins: number;
+}

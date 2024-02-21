@@ -1,18 +1,18 @@
 import { dataBase } from '../../data/data';
 import { TYPES_ENUM } from '../../interfaces/types.model';
-import { IUserCredentials, IDataReg, IReg } from './reg.model';
+import { IUserCredentials, IDataReg, IReg, IRegCheck } from './reg.model';
+import { isExistedUser } from './isExistedUser';
 
-export function regHandling(request: IReg): IReg {
-  const user: IUserCredentials = JSON.parse(request.data);
-  const existedUser = dataBase.users.find(
-    existedUser => existedUser.name === user.name
-  );
-
+export function regHandling(request: IReg): IRegCheck {
+  const credentials: IUserCredentials = JSON.parse(request.data);
   const data: IDataReg = {
-    name: user.name,
-    index: Math.floor(Math.random() * 100) + 1,
+    name: credentials.name,
+    index: 0,
     error: false,
   };
+  const existedUser = dataBase.users.find((existedUser, index) =>
+    isExistedUser(existedUser, credentials, data, index)
+  );
 
   const response: IReg = {
     type: TYPES_ENUM.REG,
@@ -20,16 +20,19 @@ export function regHandling(request: IReg): IReg {
     id: 0,
   };
 
-  if (existedUser && existedUser.password === user.password) {
-    return response;
+  if (existedUser && existedUser.password === credentials.password) {
+    return { error: false, response: response };
   } else {
     return {
-      ...response,
-      data: JSON.stringify({
-        ...data,
-        error: true,
-        errorText: 'Incorrect login or password',
-      }),
+      error: true,
+      response: {
+        ...response,
+        data: JSON.stringify({
+          ...data,
+          error: true,
+          errorText: 'Incorrect login or password',
+        }),
+      },
     };
   }
 }
