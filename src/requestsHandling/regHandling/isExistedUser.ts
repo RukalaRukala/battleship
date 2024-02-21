@@ -8,7 +8,8 @@ export function isExistedUser(
   index: number
 ) {
   if (existedUser.name === credentials.name) {
-    existedUser.index = data.index = index;
+    data.index = index;
+    existedUser.active = true;
     return true;
   } else {
     return false;
