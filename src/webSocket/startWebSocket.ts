@@ -5,7 +5,8 @@ import { IMessage } from '../requestsHandling/message.model';
 import { createRoomHandling } from '../requestsHandling/roomHandling/createRoomHandling';
 import { dataBase } from '../data/data';
 import { IExtendedWebSocket } from '../data/data.model';
-import { randomUUID } from 'crypto';
+import { addUserHandling } from '../requestsHandling/addUserHandling/addUserHandling';
+import { createId } from '../utils/createId.utils';
 
 const wss = new WebSocket.Server({
   port: +(process.env.WS_PORT || '3000'),
@@ -16,7 +17,7 @@ export function startWebSocket() {
     console.log('Client connected');
 
     const ws: IExtendedWebSocket = socket as IExtendedWebSocket;
-    ws.id = randomUUID();
+    ws.id = createId();
     dataBase.clients.push(ws);
 
     ws.on('message', message => {
@@ -30,6 +31,10 @@ export function startWebSocket() {
 
         case TYPES_ENUM.CREATE_ROOM:
           createRoomHandling(ws);
+          break;
+
+        case TYPES_ENUM.ADD_USER_TO_ROOM:
+          addUserHandling(ws);
           break;
       }
       console.log('Received message:', request);

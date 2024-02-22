@@ -1,13 +1,13 @@
 import { dataBase } from '../../data/data';
 import { IExtendedWebSocket, IRoom } from '../../data/data.model';
-import { randomUUID } from 'crypto';
+import { createId } from '../../utils/createId.utils';
 
 export function createRoom(ws: IExtendedWebSocket) {
   dataBase.users.forEach((user, i) => {
     console.log(user);
     if (user.socketId === ws.id) {
       const newRoom: IRoom = {
-        roomId: randomUUID(),
+        roomId: createId(),
         roomUsers: [{ name: user.name, index: i }],
       };
       const isNotUserInTheRoom = !dataBase.rooms.find(room =>
