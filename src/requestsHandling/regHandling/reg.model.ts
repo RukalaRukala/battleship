@@ -12,12 +12,7 @@ export interface IDataReg {
   errorText?: string;
 }
 
-export interface IRegCheck {
+export interface ICheckResponse {
   error: boolean;
   response: IMessage;
-}
-
-export interface IUserWinners {
-  name: string;
-  wins: number;
 }

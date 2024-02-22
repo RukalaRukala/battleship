@@ -1,27 +1,22 @@
 import { dataBase } from '../../data/data';
-import { IRoom, IRoomUser, IUser } from '../../data/data.model';
+import { IExtendedWebSocket, IRoom } from '../../data/data.model';
+import { randomUUID } from 'crypto';
 
-export function createRoom() {
-  let userIndex: number = 0;
-  const user = dataBase.users.find((user, i) => {
-    if (user.active) {
-      userIndex = i;
-      return true;
+export function createRoom(ws: IExtendedWebSocket) {
+  dataBase.users.forEach((user, i) => {
+    console.log(user);
+    if (user.socketId === ws.id) {
+      const newRoom: IRoom = {
+        roomId: randomUUID(),
+        roomUsers: [{ name: user.name, index: i }],
+      };
+      const isNotUserInTheRoom = !dataBase.rooms.find(room =>
+        room.roomUsers.find(roomUser => roomUser.index === i)
+      );
+
+      if (isNotUserInTheRoom) {
+        dataBase.rooms.push(newRoom);
+      }
     }
-    return false;
-  }) as IUser;
-
-  const roomUser: IRoomUser = { name: user.name, index: userIndex };
-  const lastRoom = dataBase.rooms.at(-1);
-  const roomId = lastRoom ? lastRoom.roomId + 1 : 0;
-  const newRoom: IRoom = {
-    roomId: roomId,
-    roomUsers: [roomUser],
-  };
-
-  !dataBase.rooms.find(room =>
-    room.roomUsers.find(roomUser => userIndex === roomUser.index)
-  )
-    ? dataBase.rooms.push(newRoom)
-    : null;
+  });
 }

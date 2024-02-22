@@ -1,21 +1,22 @@
-import WebSocket from 'ws';
 import { getRegResponse } from './getRegResponse';
-import { updateWinners } from './updateWinners';
 import { IMessage } from '../message.model';
-import { TYPES_ENUM } from '../../interfaces/types.model';
+import { dataBase } from '../../data/data';
+import { IExtendedWebSocket } from '../../data/data.model';
+import { getRoomsUpdate } from '../roomHandling/getRoomsUpdate';
+import { getWinnersUpdate } from './getWinnersUpdate';
 
-export function regHandling(ws: WebSocket, request: IMessage) {
-  const result = getRegResponse(request);
-  const roomsInit = JSON.stringify({
-    type: TYPES_ENUM.CREATE_ROOM,
-    data: '',
-    id: 0,
-  });
+export function regHandling(ws: IExtendedWebSocket, request: IMessage) {
+  const result = getRegResponse(ws, request);
+
   ws.send(JSON.stringify(result.response));
-  !result.error
-    ? (() => {
-        ws.send(JSON.stringify(updateWinners(result.response)));
-        ws.send(roomsInit);
-      })()
-    : null;
+
+  if (!result.error) {
+    dataBase.clients.forEach(client => {
+      client.send(getRoomsUpdate());
+    });
+
+    dataBase.clients.forEach(client => {
+      client.send(getWinnersUpdate());
+    });
+  }
 }

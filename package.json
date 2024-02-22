@@ -7,7 +7,7 @@
         "start": "node index.ts",
         "start:dev": "nodemon --exec ts-node-dev --respawn --transpile-only index.ts",
         "test": "jest",
-        "lint": "eslint src/http_server/server.ts",
+        "lint": "eslint ./src",
         "lint:fix": "eslint ./src --fix"
     },
     "author": "Mikalai Rusakovich",

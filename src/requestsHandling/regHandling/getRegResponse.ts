@@ -1,10 +1,14 @@
 import { dataBase } from '../../data/data';
 import { TYPES_ENUM } from '../../interfaces/types.model';
-import { IUserCredentials, IDataReg, IRegCheck } from './reg.model';
+import { IUserCredentials, IDataReg, ICheckResponse } from './reg.model';
 import { isExistedUser } from './isExistedUser';
 import { IMessage } from '../message.model';
+import { IExtendedWebSocket } from '../../data/data.model';
 
-export function getRegResponse(request: IMessage): IRegCheck {
+export function getRegResponse(
+  ws: IExtendedWebSocket,
+  request: IMessage
+): ICheckResponse {
   const credentials: IUserCredentials = JSON.parse(request.data);
   const data: IDataReg = {
     name: credentials.name,
@@ -12,7 +16,7 @@ export function getRegResponse(request: IMessage): IRegCheck {
     error: false,
   };
   const existedUser = dataBase.users.find((existedUser, index) =>
-    isExistedUser(existedUser, credentials, data, index)
+    isExistedUser(ws, existedUser, credentials, data, index)
   );
 
   const response: IMessage = {

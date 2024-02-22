@@ -1,8 +1,14 @@
+import WebSocket from 'ws';
+
+export interface IExtendedWebSocket extends WebSocket {
+  id: string;
+}
+
 export interface IUser {
   name: string;
   password: string;
   wins: number;
-  active: boolean;
+  socketId: string | null;
 }
 
 export interface IRoomUser {
@@ -11,11 +17,18 @@ export interface IRoomUser {
 }
 
 export interface IRoom {
-  roomId: number;
+  roomId: string;
   roomUsers: IRoomUser[];
+}
+
+export interface IWinners {
+  name: string;
+  wins: number;
 }
 
 export interface IDataBase {
   users: IUser[];
   rooms: IRoom[];
+  clients: IExtendedWebSocket[];
+  winners: IWinners[];
 }
