@@ -3,15 +3,14 @@ import { IExtendedWebSocket, IRoom } from '../../data/data.model';
 import { createId } from '../../utils/createId.utils';
 
 export function createRoom(ws: IExtendedWebSocket) {
-  dataBase.users.forEach((user, i) => {
-    console.log(user);
+  dataBase.users.forEach(user => {
     if (user.socketId === ws.id) {
       const newRoom: IRoom = {
         roomId: createId(),
-        roomUsers: [{ name: user.name, index: i }],
+        roomUsers: [{ name: user.name, index: user.socketId }],
       };
       const isNotUserInTheRoom = !dataBase.rooms.find(room =>
-        room.roomUsers.find(roomUser => roomUser.index === i)
+        room.roomUsers.find(roomUser => roomUser.index === user.socketId)
       );
 
       if (isNotUserInTheRoom) {

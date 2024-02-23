@@ -1,7 +1,37 @@
 import WebSocket from 'ws';
 
+export enum SHIP_SIZE {
+  SMALL = 'small',
+  MEDIUM = 'medium',
+  LARGE = 'large',
+  HUGE = 'huge',
+}
+
+export enum DIRECTION {
+  VERTICAL = 'true',
+  HORIZONTAL = '',
+}
+
 export interface IExtendedWebSocket extends WebSocket {
   id: number;
+}
+
+export interface IPosition {
+  x: number;
+  y: number;
+}
+
+export interface IShip {
+  position: IPosition;
+  direction: DIRECTION;
+  length: number;
+  type: SHIP_SIZE;
+}
+
+export interface IUserGame {
+  gameId: number;
+  ships: IShip[];
+  indexPlayer: number;
 }
 
 export interface IUser {
@@ -9,6 +39,7 @@ export interface IUser {
   password: string;
   wins: number;
   socketId: number | null;
+  game: IUserGame | null;
 }
 
 export interface IRoomUser {

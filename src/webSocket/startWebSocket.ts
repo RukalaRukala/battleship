@@ -26,7 +26,6 @@ export function startWebSocket() {
       switch (request.type) {
         case TYPES_ENUM.REG:
           regHandling(ws, request);
-          console.log(dataBase);
           break;
 
         case TYPES_ENUM.CREATE_ROOM:
@@ -34,7 +33,7 @@ export function startWebSocket() {
           break;
 
         case TYPES_ENUM.ADD_USER_TO_ROOM:
-          addUserHandling(ws);
+          addUserHandling(ws, request);
           break;
       }
       console.log('Received message:', request);
