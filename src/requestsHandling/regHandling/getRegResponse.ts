@@ -31,7 +31,7 @@ export function getRegResponse(
     (existedUser && existedUser.password === credentials.password) || false;
 
   return {
-    error: isValidCredentials,
+    error: !isValidCredentials,
     response: isValidCredentials ? response : errorResponse,
   };
 }
