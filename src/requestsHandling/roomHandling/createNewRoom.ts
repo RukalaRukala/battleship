@@ -2,7 +2,7 @@ import { dataBase } from '../../data/data';
 import { IExtendedWebSocket, IRoom } from '../../data/data.model';
 import { createId } from '../../utils/createId.utils';
 
-export function createRoom(ws: IExtendedWebSocket) {
+export function createNewRoom(ws: IExtendedWebSocket) {
   dataBase.users.forEach(user => {
     if (user.socketId === ws.id) {
       const newRoom: IRoom = {

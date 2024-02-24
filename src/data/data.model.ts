@@ -7,11 +7,6 @@ export enum SHIP_SIZE {
   HUGE = 'huge',
 }
 
-export enum DIRECTION {
-  VERTICAL = 'true',
-  HORIZONTAL = '',
-}
-
 export interface IExtendedWebSocket extends WebSocket {
   id: number;
 }
@@ -23,15 +18,14 @@ export interface IPosition {
 
 export interface IShip {
   position: IPosition;
-  direction: DIRECTION;
+  direction: boolean;
   length: number;
   type: SHIP_SIZE;
 }
 
-export interface IUserGame {
-  gameId: number;
-  ships: IShip[];
-  indexPlayer: number;
+export interface IActiveGame {
+  id: number;
+  games: IGame[];
 }
 
 export interface IUser {
@@ -39,7 +33,6 @@ export interface IUser {
   password: string;
   wins: number;
   socketId: number | null;
-  game: IUserGame | null;
 }
 
 export interface IRoomUser {
@@ -66,6 +59,6 @@ export interface IDataBase {
   users: IUser[];
   rooms: IRoom[];
   clients: IExtendedWebSocket[];
-  games: IGame[];
   winners: IWinners[];
+  activeGames: IActiveGame[];
 }

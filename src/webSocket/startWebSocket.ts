@@ -2,11 +2,12 @@ import WebSocket from 'ws';
 import { TYPES_ENUM } from '../interfaces/types.model';
 import { regHandling } from '../requestsHandling/regHandling/regHandling';
 import { IMessage } from '../requestsHandling/message.model';
-import { createRoomHandling } from '../requestsHandling/roomHandling/createRoomHandling';
+import { roomHandling } from '../requestsHandling/roomHandling/roomHandling';
 import { dataBase } from '../data/data';
 import { IExtendedWebSocket } from '../data/data.model';
-import { addUserHandling } from '../requestsHandling/addUserHandling/addUserHandling';
+import { userHandling } from '../requestsHandling/addUserHandling/userHandling';
 import { createId } from '../utils/createId.utils';
+import { shipsHandling } from '../requestsHandling/shipsHandling/shipsHandling';
 
 const wss = new WebSocket.Server({
   port: +(process.env.WS_PORT || '3000'),
@@ -29,11 +30,15 @@ export function startWebSocket() {
           break;
 
         case TYPES_ENUM.CREATE_ROOM:
-          createRoomHandling(ws);
+          roomHandling(ws);
           break;
 
         case TYPES_ENUM.ADD_USER_TO_ROOM:
-          addUserHandling(ws, request);
+          userHandling(ws, request);
+          break;
+
+        case TYPES_ENUM.ADD_SHIPS:
+          shipsHandling(ws, request);
           break;
       }
       console.log('Received message:', request);
