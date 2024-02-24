@@ -12,7 +12,6 @@ export function isExistedUser(
     data.index = index;
     existedUser.socketId = ws.id;
     return true;
-  } else {
-    return false;
   }
+  return false;
 }

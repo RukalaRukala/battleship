@@ -68,4 +68,10 @@ export interface ICurrentPlayer {
   currentPlayer: number;
 }
 
-export type DATA = IDataReg | IShip[] | ICurrentPlayer | IGame;
+export type DATA =
+  | IDataReg
+  | IShip[]
+  | ICurrentPlayer
+  | IGame
+  | IWinners[]
+  | IRoom[];
