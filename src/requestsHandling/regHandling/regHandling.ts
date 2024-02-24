@@ -8,7 +8,7 @@ import { getWinnersUpdate } from './getWinnersUpdate';
 export function regHandling(ws: IExtendedWebSocket, request: IMessage) {
   const result = getRegResponse(ws, request);
 
-  ws.send(JSON.stringify(result.response));
+  ws.send(result.response);
 
   if (!result.error) {
     dataBase.clients.forEach(client => {

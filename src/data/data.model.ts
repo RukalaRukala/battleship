@@ -1,4 +1,5 @@
 import WebSocket from 'ws';
+import { IDataReg } from '../requestsHandling/regHandling/reg.model';
 
 export enum SHIP_SIZE {
   SMALL = 'small',
@@ -62,3 +63,9 @@ export interface IDataBase {
   winners: IWinners[];
   activeGames: IActiveGame[];
 }
+
+export interface ICurrentPlayer {
+  currentPlayer: number;
+}
+
+export type DATA = IDataReg | IShip[] | ICurrentPlayer | IGame;

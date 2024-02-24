@@ -1,5 +1,3 @@
-import { IMessage } from '../message.model';
-
 export interface IUserCredentials {
   name: string;
   password: string;
@@ -14,5 +12,5 @@ export interface IDataReg {
 
 export interface ICheckResponse {
   error: boolean;
-  response: IMessage;
+  response: string;
 }
