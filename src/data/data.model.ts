@@ -1,6 +1,7 @@
 import WebSocket from 'ws';
 import { IDataReg } from '../requestsHandling/regHandling/reg.model';
 import { IAttack } from '../requestsHandling/randomAttackHandling/attack.model';
+import { IGameField } from '../requestsHandling/shipsHandling/shipsHandling.model';
 
 export enum SHIP_SIZE {
   SMALL = 'small',
@@ -50,7 +51,8 @@ export interface IWinners {
 export interface IGame {
   idGame: number;
   idPlayer: number;
-  touchedEnemyCells?: string[];
+  enemyBoard?: IGameField;
+  ships?: IGameField;
 }
 
 export interface IActiveGame {
