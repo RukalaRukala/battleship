@@ -1,5 +1,5 @@
 import { dataBase } from '../data/data';
-import { createMessage } from './createMessage';
+import { createMessage } from './createMessage.utils';
 import { TYPES_ENUM } from '../interfaces/types.model';
 
 export function viewNewRoom() {

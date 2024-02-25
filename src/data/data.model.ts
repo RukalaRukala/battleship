@@ -1,5 +1,6 @@
 import WebSocket from 'ws';
 import { IDataReg } from '../requestsHandling/regHandling/reg.model';
+import { IAttack } from '../requestsHandling/randomAttackHandling/attack.model';
 
 export enum SHIP_SIZE {
   SMALL = 'small',
@@ -22,11 +23,6 @@ export interface IShip {
   direction: boolean;
   length: number;
   type: SHIP_SIZE;
-}
-
-export interface IActiveGame {
-  id: number;
-  games: IGame[];
 }
 
 export interface IUser {
@@ -54,6 +50,12 @@ export interface IWinners {
 export interface IGame {
   idGame: number;
   idPlayer: number;
+  touchedEnemyCells?: string[];
+}
+
+export interface IActiveGame {
+  id: number;
+  games: IGame[];
 }
 
 export interface IDataBase {
@@ -74,4 +76,5 @@ export type DATA =
   | ICurrentPlayer
   | IGame
   | IWinners[]
-  | IRoom[];
+  | IRoom[]
+  | IAttack;

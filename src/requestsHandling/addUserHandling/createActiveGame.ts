@@ -8,15 +8,17 @@ export function createActiveGame(initGameUser: IUser, roomOwnerUser: IUser) {
   const initiatingUserGame: IGame = {
     idGame: gameId,
     idPlayer: initGameUser.socketId as number,
+    touchedEnemyCells: [],
   };
 
   const opponentUserGame: IGame = {
     idGame: gameId,
     idPlayer: roomOwnerUser.socketId as number,
+    touchedEnemyCells: [],
   };
 
   const newActiveGame: IActiveGame = {
-    id: createId(),
+    id: gameId,
     games: [initiatingUserGame, opponentUserGame],
   };
 

@@ -1,4 +1,4 @@
-import { createMessage } from './createMessage';
+import { createMessage } from './createMessage.utils';
 import { TYPES_ENUM } from '../interfaces/types.model';
 import { dataBase } from '../data/data';
 

@@ -4,7 +4,7 @@ import { ICheckResponse, IDataReg, IUserCredentials } from './reg.model';
 import { isExistedUser } from './isExistedUser';
 import { IMessage } from '../message.model';
 import { IExtendedWebSocket } from '../../data/data.model';
-import { createMessage } from '../../utils/createMessage';
+import { createMessage } from '../../utils/createMessage.utils';
 
 export function getRegResponse(
   ws: IExtendedWebSocket,
