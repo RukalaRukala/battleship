@@ -45,6 +45,10 @@ export function startWebSocket() {
         case TYPES_ENUM.RANDOM_ATTACK:
           randomAttackHandling(request);
           break;
+
+        case TYPES_ENUM.ATTACK:
+          randomAttackHandling(request);
+          break;
       }
       console.log('Received message:', request);
     });

@@ -8,11 +8,13 @@ export function createActiveGame(initGameUser: IUser, roomOwnerUser: IUser) {
   const initiatingUserGame: IGame = {
     idGame: gameId,
     idPlayer: initGameUser.socketId as number,
+    turn: false,
   };
 
   const opponentUserGame: IGame = {
     idGame: gameId,
     idPlayer: roomOwnerUser.socketId as number,
+    turn: false,
   };
 
   const newActiveGame: IActiveGame = {

@@ -7,6 +7,7 @@ export function createNewRoom(ws: IExtendedWebSocket) {
     if (user.socketId === ws.id) {
       const newRoom: IRoom = {
         roomId: createId(),
+        ownerId: ws.id,
         roomUsers: [{ name: user.name, index: user.socketId }],
       };
       const isNotUserInTheRoom = !dataBase.rooms.find(room =>

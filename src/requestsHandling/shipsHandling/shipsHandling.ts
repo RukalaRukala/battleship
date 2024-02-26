@@ -24,6 +24,7 @@ export function shipsHandling(ws: IExtendedWebSocket, request: IMessage) {
   userGame.ships.initialize(gameData.ships);
   userGame.ships.cells.forEach(line => console.log(JSON.stringify(line)));
 
+  activeGame.games[0].turn = true;
   const playerWhoseTurnItIs: ICurrentPlayer = { currentPlayer: gameUsersId[0] };
 
   const shipsMessage = createMessage(TYPES_ENUM.START_GAME, gameData.ships);

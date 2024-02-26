@@ -6,14 +6,11 @@ export enum ATTACK_STATUS {
   SHOT = 'shot',
 }
 
-export interface IRandomAttack {
+export interface IAttack {
   gameId: number;
   indexPlayer: number;
-}
-
-export interface IAttack extends IRandomAttack {
-  x: number;
-  y: number;
+  x?: number;
+  y?: number;
 }
 
 export interface IAttackFeedback {

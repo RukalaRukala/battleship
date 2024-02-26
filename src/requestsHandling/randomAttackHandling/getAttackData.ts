@@ -10,25 +10,25 @@ export function getAttackData(
   enemy: IGame,
   position?: IPosition
 ): IAttackFeedback {
+  if (type === TYPES_ENUM.ATTACK && position) {
+    return {
+      position: {
+        x: position.x,
+        y: position.y,
+      },
+      currentPlayer: currentPlayer.idPlayer,
+      status: checkStatus(currentPlayer, enemy, position.x, position.y),
+    };
+  }
+
+  console.log('preRandom');
   const randPos: IPosition = chooseEmptyRandomCell(currentPlayer);
+  console.log('afterRandom');
   const status = checkStatus(currentPlayer, enemy, randPos.x, randPos.y);
 
-  const data: IAttackFeedback = {
+  return {
     position: randPos,
     currentPlayer: currentPlayer.idPlayer,
     status: status,
   };
-
-  if (type === TYPES_ENUM.ATTACK && position) {
-    data.position.x = position.x;
-    data.position.y = position.y;
-    data.status = checkStatus(
-      currentPlayer,
-      enemy,
-      data.position.x,
-      data.position.y
-    );
-  }
-
-  return data;
 }

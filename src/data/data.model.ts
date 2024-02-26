@@ -40,6 +40,7 @@ export interface IRoomUser {
 
 export interface IRoom {
   roomId: number;
+  ownerId: number;
   roomUsers: IRoomUser[];
 }
 
@@ -51,6 +52,7 @@ export interface IWinners {
 export interface IGame {
   idGame: number;
   idPlayer: number;
+  turn: boolean;
   enemyBoard?: IGameField;
   ships?: IGameField;
 }
