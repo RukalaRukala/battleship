@@ -44,7 +44,7 @@ export interface IRoom {
   roomUsers: IRoomUser[];
 }
 
-export interface IWinners {
+export interface IWinner {
   name: string;
   wins: number;
 }
@@ -66,7 +66,7 @@ export interface IDataBase {
   users: IUser[];
   rooms: IRoom[];
   clients: IExtendedWebSocket[];
-  winners: IWinners[];
+  winners: IWinner[];
   activeGames: IActiveGame[];
 }
 
@@ -79,6 +79,6 @@ export type DATA =
   | IShip[]
   | ICurrentPlayer
   | IGame
-  | IWinners[]
+  | IWinner[]
   | IRoom[]
   | IAttack;

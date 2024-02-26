@@ -8,7 +8,7 @@ import { IExtendedWebSocket } from '../data/data.model';
 import { userHandling } from '../requestsHandling/addUserHandling/userHandling';
 import { createId } from '../utils/createId.utils';
 import { shipsHandling } from '../requestsHandling/shipsHandling/shipsHandling';
-import { randomAttackHandling } from '../requestsHandling/randomAttackHandling/randomAttackHandling';
+import { attackHandling } from '../requestsHandling/randomAttackHandling/attackHandling';
 
 const wss = new WebSocket.Server({
   port: +(process.env.WS_PORT || '3000'),
@@ -43,11 +43,11 @@ export function startWebSocket() {
           break;
 
         case TYPES_ENUM.RANDOM_ATTACK:
-          randomAttackHandling(request);
+          attackHandling(ws, request);
           break;
 
         case TYPES_ENUM.ATTACK:
-          randomAttackHandling(request);
+          attackHandling(ws, request);
           break;
       }
       console.log('Received message:', request);

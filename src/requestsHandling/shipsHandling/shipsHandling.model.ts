@@ -11,4 +11,5 @@ export interface IGameField {
   initialize(ships: IShip[]): void;
   checkHit(x: number, y: number): boolean;
   markHitCell(x: number, y: number): void;
+  getShots(): number;
 }

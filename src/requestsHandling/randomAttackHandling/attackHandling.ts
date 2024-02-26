@@ -6,9 +6,18 @@ import { getActiveGame } from '../../utils/getActiveGame.utils';
 import { dataBase } from '../../data/data';
 import { sendTurnToUser } from './sendTurnToUser';
 import { getAttackData } from './getAttackData';
-import { IGame, IPosition } from '../../data/data.model';
+import {
+  IExtendedWebSocket,
+  IGame,
+  IPosition,
+  IUser,
+  IWinner,
+} from '../../data/data.model';
+import { finishGame } from '../shipsHandling/finishGame';
+import { viewRooms } from '../../utils/viewRooms.utils';
+import { getWinners } from '../../utils/getWinners.utils';
 
-export function randomAttackHandling(request: IMessage) {
+export function attackHandling(ws: IExtendedWebSocket, request: IMessage) {
   const requestData: IAttack = JSON.parse(request.data);
   const activeGame = getActiveGame(requestData.gameId);
   const position: IPosition | undefined =
@@ -42,13 +51,48 @@ export function randomAttackHandling(request: IMessage) {
     clientToSend.forEach(client => {
       console.log('attack');
       client.send(attackMessage);
+
       if (attackData.status === ATTACK_STATUS.MISS) {
+        if (enemy.ships?.getShots() === 20) {
+          viewRooms(client);
+          client.send(finishGame(enemy.idPlayer));
+          return;
+        }
         console.log('turn to enemy');
         sendTurnToUser(client, enemy.idPlayer);
         curPlayer.turn = false;
         enemy.turn = true;
         return;
       }
+
+      if (enemy.ships?.getShots() === 20) {
+        const winner = dataBase.users.find(
+          user => user.socketId === curPlayer.idPlayer
+        ) as IUser;
+
+        const isWinnerInWinners = dataBase.winners.find(
+          eachWinner => eachWinner.name === winner.name
+        );
+
+        if (isWinnerInWinners) {
+          if (winner.socketId === client.id) {
+            const existedWinner = dataBase.winners.find(
+              eachWinner => eachWinner.name === winner.name
+            ) as IWinner;
+            existedWinner.wins += 1;
+          }
+        } else {
+          if (winner.socketId === client.id) {
+            winner.wins += 1;
+            dataBase.winners.push({ name: winner.name, wins: winner.wins });
+          }
+        }
+        getWinners(client);
+        viewRooms(client);
+        client.send(finishGame(curPlayer.idPlayer));
+        return;
+      }
+
       console.log('turn to current');
       sendTurnToUser(client, requestData.indexPlayer);
     });

@@ -1,7 +1,7 @@
 import { getRegResponse } from './getRegResponse';
 import { IMessage } from '../message.model';
 import { IExtendedWebSocket } from '../../data/data.model';
-import { viewNewRoom } from '../../utils/viewNewRoom.utils';
+import { viewRooms } from '../../utils/viewRooms.utils';
 import { getWinners } from '../../utils/getWinners.utils';
 
 export function regHandling(ws: IExtendedWebSocket, request: IMessage) {
@@ -11,6 +11,6 @@ export function regHandling(ws: IExtendedWebSocket, request: IMessage) {
 
   if (!result.error) {
     getWinners();
-    viewNewRoom();
+    viewRooms();
   }
 }
