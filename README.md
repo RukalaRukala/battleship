@@ -10,17 +10,17 @@
 
 ## Usage
 
-**Development**
+start by:
 
 `npm run start:dev`
 
 * App served @ `http://localhost:8181` with nodemon
 
-**Production**
+use user with next credentials:
 
-`npm run start`
+name: 'RuMan', password: '12345'
+name: 'Hulk', password: '12345'
 
-* App served @ `http://localhost:8181` without nodemon
 
 ---
 
@@ -28,7 +28,6 @@
 
  Command             | Description                                          
 ---------------------|------------------------------------------------------
- `npm run start:dev` | App served @ `http://localhost:8181` with nodemon    
- `npm run start`     | App served @ `http://localhost:8181` without nodemon 
+ `npm run start:dev` | App served @ `http://localhost:8181` with nodemon     
 
 **Note**: replace `npm` with `yarn` in `package.json` if you use yarn.
