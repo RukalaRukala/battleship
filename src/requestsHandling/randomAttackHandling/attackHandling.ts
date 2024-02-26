@@ -87,7 +87,7 @@ export function attackHandling(ws: IExtendedWebSocket, request: IMessage) {
             dataBase.winners.push({ name: winner.name, wins: winner.wins });
           }
         }
-        getWinners(client);
+        getWinners();
         viewRooms(client);
         client.send(finishGame(curPlayer.idPlayer));
         return;
