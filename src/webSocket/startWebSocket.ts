@@ -9,6 +9,7 @@ import { userHandling } from '../requestsHandling/addUserHandling/userHandling';
 import { createId } from '../utils/createId.utils';
 import { shipsHandling } from '../requestsHandling/shipsHandling/shipsHandling';
 import { attackHandling } from '../requestsHandling/randomAttackHandling/attackHandling';
+import { singlePlayHandling } from '../requestsHandling/singlePlayHandling/singlePlayHandling';
 
 const wss = new WebSocket.Server({
   port: +(process.env.WS_PORT || '3000'),
@@ -48,6 +49,10 @@ export function startWebSocket() {
 
         case TYPES_ENUM.ATTACK:
           attackHandling(ws, request);
+          break;
+
+        case TYPES_ENUM.SINGLE_PLAY:
+          singlePlayHandling(ws, request);
           break;
       }
       console.log('Received message:', request);

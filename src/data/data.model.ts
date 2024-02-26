@@ -52,7 +52,7 @@ export interface IWinner {
 export interface IGame {
   idGame: number;
   idPlayer: number;
-  turn: boolean;
+  turn?: boolean;
   enemyBoard?: IGameField;
   ships?: IGameField;
 }
@@ -81,4 +81,5 @@ export type DATA =
   | IGame
   | IWinner[]
   | IRoom[]
-  | IAttack;
+  | IAttack
+  | { indexRoom: number };
